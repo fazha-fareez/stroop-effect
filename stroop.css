@@ -1,5 +1,5 @@
 body {
-	background-color: darkgrey;
+	background-color: rgb(115,115,115);
 }
 section {
 	margin: 0 auto;
@@ -9,12 +9,82 @@ section {
 .start-button {
 	border: solid;
 }
-.purple {
-	color: purple;
+.color-text {
+	font-weight: bolder;
+	font-size: 100px;
 }
-.red {
-	color: red;
+
+
+
+
+
+/* All the different colours used */
+.darkpurple {
+	color: rgb(70,0,102);
 }
-.green {
-	color: green;
+.lightpurple {
+	color: rgb(153,0,153);
+}
+.medpurple {
+	color: rgb(118,0,102);
+}
+.darkgreen {
+	color: rgb(0,77,0);
+}
+.lightgreen {
+	color: rgb(0,179,0);
+}
+.medgreen {
+	color: rgb(0,128,0);
+}
+.darkred {
+	color: rgb(128,0,0);
+}
+.lightred {
+	color: rgb(255,0,0);
+}
+.medred {
+	color: rgb(204,0,0);
+}
+.darkblue {
+	color: rgb(0,25,232);
+}
+.lightblue {
+	color: rgb(0,85,255);
+}
+.medblue {
+	color: rgb(13,89,242);
+}
+.darkyellow {
+	color: rgb(230,184,0);
+}
+.lightyellow {
+	color: rgb(255,209,26);
+}
+.darkorange {
+	color: rgb(255,128,0);
+}
+.hotpink {
+	color: hotpink;
+}
+.darkpink {
+	color: rgb(230,0,115);
+}
+.lightpink {
+	color: rgb(255,77,166);
+}
+.medpink {
+	color: rgb(255,128,191);
+}
+.white {
+	color: white;
+}
+.darkbrown {
+	color: rgb(77,40,0);
+}
+.lightbrown {
+	color: rgb(179,92,0);
+}
+.medbrown {
+	color: rgb(128,66,0);
 }
