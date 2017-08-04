@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Stroop Effect </title>
+	<link rel="stylesheet" type="text/css" href="stroop.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="mainController">
+	<section class="home-page" ng-show="homeShow">
+		<span ng-click="startBtn()" class="start-button"> START </span>
+
+	</section>
+
+	<section class="word-page" ng-show="wordShow">
+		<div ng-class="class"> {{color}} </div>
+		<div ng-click = "nextBtn()" class="next-button"> NEXT </div>
+		<span ng-click="reloadPage()" class="quit-button"> QUIT </span>
+	</section>
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="app.js"></script>
+<script type="text/javascript" src="mainController.js"></script>
+
+</html>

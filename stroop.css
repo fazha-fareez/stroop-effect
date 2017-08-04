@@ -1,0 +1,20 @@
+body {
+	background-color: darkgrey;
+}
+section {
+	margin: 0 auto;
+	text-align: center;
+	width: 980px;
+}
+.start-button {
+	border: solid;
+}
+.purple {
+	color: purple;
+}
+.red {
+	color: red;
+}
+.green {
+	color: green;
+}
