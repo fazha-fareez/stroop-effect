@@ -5,10 +5,12 @@ app.service('randomInteger', function() {
 	}
 })
 
+
 app.controller('mainController', function($scope, randomInteger){
 	$scope.homeShow = true;
 	$scope.wordShow = false;
 	$scope.resultShow = false;
+	var timer;
 	var words = ["purple", "green", "red", "blue", "yellow", "orange", "pink", "white", "brown"];
 	var colors = ["darkpurple", "lightpurple", "medpurple", "darkgreen", "lightgreen", "medgreen", "darkred", "lightred", "medred",
 	"darkblue", "lightblue", "medblue", "darkyellow", "lightyellow", "darkorange", "hotpink", "darkpink", "lightpink", "medpink", "white", "darkbrown", "lightbrown", "medbrown"];
@@ -75,6 +77,18 @@ app.controller('mainController', function($scope, randomInteger){
 		console.log($scope.arr);
 	}
 
+	$scope.timer = function() {
+		$scope.startTime = 10;
+		$scope.x = setInterval(function() {
+			$scope.startTime--;
+			$scope.$apply();
+			if ($scope.startTime <= 0) {
+				clearInterval($scope.x);
+				$scope.next();
+			}
+		}, 1000);
+	}
+
 	$scope.verify = function(x) {
 		if (x === $scope.answer) {
 			$scope.score++;
@@ -88,6 +102,7 @@ app.controller('mainController', function($scope, randomInteger){
 		$scope.score = 0;
 		$scope.question = 0;
 		$scope.change();
+		$scope.timer();
 		$scope.diffWord();
 		$scope.changeClass();
 		$scope.genOptions();
@@ -98,6 +113,8 @@ app.controller('mainController', function($scope, randomInteger){
 			$scope.resultPage();
 		}
 		else {
+			clearInterval($scope.x);
+			$scope.timer();
 			$scope.verify(x);
 			$scope.diffWord();
 			$scope.changeClass();
