@@ -78,12 +78,12 @@ app.controller('mainController', function($scope, randomInteger){
 	}
 
 	$scope.timer = function() {
-		$scope.startTime = 10;
+		$scope.startTime = 3;
 		$scope.x = setInterval(function() {
 			$scope.startTime--;
 			$scope.$apply();
 			if ($scope.startTime <= 0) {
-				clearInterval($scope.x);
+				$scope.question++;
 				$scope.next();
 			}
 		}, 1000);
@@ -110,6 +110,7 @@ app.controller('mainController', function($scope, randomInteger){
 
 	$scope.next = function(x) {
 		if ($scope.question === 9) {
+			clearInterval($scope.x);
 			$scope.resultPage();
 		}
 		else {
