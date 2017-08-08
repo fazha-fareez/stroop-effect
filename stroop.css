@@ -23,6 +23,7 @@ section {
 }
 .time {
 	color: white;
+	text-align: right;
 }
 .score {
 	margin-bottom: 150px;
@@ -166,3 +167,4 @@ section {
 .medbrown {
 	color: rgb(128,66,0);
 }
+
