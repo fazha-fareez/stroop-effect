@@ -8,6 +8,7 @@ app.service('randomInteger', function() {
 app.controller('mainController', function($scope, randomInteger){
 	$scope.homeShow = true;
 	$scope.wordShow = false;
+	$scope.resultShow = false;
 	var words = ["purple", "green", "red", "blue", "yellow", "orange", "pink", "white", "brown"];
 	var colors = ["darkpurple", "lightpurple", "medpurple", "darkgreen", "lightgreen", "medgreen", "darkred", "lightred", "medred",
 	"darkblue", "lightblue", "medblue", "darkyellow", "lightyellow", "darkorange", "hotpink", "darkpink", "lightpink", "medpink", "white", "darkbrown", "lightbrown", "medbrown"];
@@ -30,6 +31,10 @@ app.controller('mainController', function($scope, randomInteger){
 		$scope.homeShow = !($scope.homeShow);
 		$scope.wordShow = !($scope.wordShow);
 	}
+	$scope.resultPage = function() {
+		$scope.wordShow = !($scope.wordShow);
+		$scope.resultShow = !($scope.resultShow);
+	}
 	$scope.reloadPage = function() {
 		window.location.reload();
 	}
@@ -49,6 +54,7 @@ app.controller('mainController', function($scope, randomInteger){
 		var match = false;
 		while (a < $scope.arr.length) {
 			if ($scope.class.indexOf($scope.arr[a]) !== -1) {
+				$scope.answer = $scope.arr[a];
 				match = true;
 				break;
 			}
@@ -59,7 +65,7 @@ app.controller('mainController', function($scope, randomInteger){
 			var pos = 0;
 			while (pos < Object.keys(dict).length) {
 				if ($scope.class.indexOf(Object.keys(dict)[pos]) !== -1) {
-					console.log(Object.keys(dict)[pos]);
+					$scope.answer = Object.keys(dict)[pos];
 					$scope.arr[index] = Object.keys(dict)[pos];
 					break;
 				}
@@ -69,18 +75,35 @@ app.controller('mainController', function($scope, randomInteger){
 		console.log($scope.arr);
 	}
 
+	$scope.verify = function(x) {
+		if (x === $scope.answer) {
+			$scope.score++;
+			$scope.question++;
+		}
+		else { $scope.question++; }
+	}
+
 
 	$scope.startBtn = function() {
+		$scope.score = 0;
+		$scope.question = 0;
 		$scope.change();
 		$scope.diffWord();
 		$scope.changeClass();
 		$scope.genOptions();
 	}
 
-	$scope.nextBtn = function() {
-		$scope.diffWord();
-		$scope.changeClass();
-		$scope.genOptions();
+	$scope.next = function(x) {
+		if ($scope.question === 9) {
+			$scope.resultPage();
+		}
+		else {
+			$scope.verify(x);
+			$scope.diffWord();
+			$scope.changeClass();
+			$scope.genOptions();
+		}
+		
 	}
 
 });
