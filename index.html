@@ -4,7 +4,7 @@
 	<title> Stroop Effect </title>
 	<link rel="stylesheet" type="text/css" href="stroop.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="mainController">
@@ -17,12 +17,12 @@
 	</section>
 
 	<section class="word-page" ng-show="wordShow">
-		<div ng-class="class" class="color-text"> {{color}} </div>
+		<div ng-class="class" class="color-text" ng-bind="color"> </div>
 		<div>
-			<span ng-repeat="x in arr" ng-click="next(x)" class="option-button">
-				{{x}}
+			<span ng-repeat="x in arr" ng-click="next(x)" class="option-button" ng-bind="x">
 			</span>
 		</div>
+		<div class="time" ng-bind="startTime"> </div>
 		<div class="buttons">
 			<span ng-click="resultPage()" class="quit-button"> QUIT </span>
 			<span ng-click="reloadPage()" class="home-button"> HOME </span>
@@ -30,7 +30,7 @@
 	</section>
 
 	<section class="result-page" ng-show = "resultShow">
-		<div class = "score"> {{score}} </div>
+		<div class = "score" ng-bind="score"> </div>
 		<span ng-click="reloadPage()" class="home-button" id="home-button"> HOME </span>
 	</section>
 
