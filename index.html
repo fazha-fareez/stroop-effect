@@ -14,7 +14,12 @@
 	</section>
 
 	<section class="word-page" ng-show="wordShow">
-		<div ng-class="class"> {{color}} </div>
+		<div ng-class="class" class="color-text"> {{color}} </div>
+		<div>
+			<span ng-repeat="x in arr">
+				{{x}}
+			</span>
+		</div>
 		<div ng-click = "nextBtn()" class="next-button"> NEXT </div>
 		<span ng-click="reloadPage()" class="quit-button"> QUIT </span>
 	</section>
@@ -23,20 +28,7 @@
 </body>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script src="app.js"></script>
 <script type="text/javascript" src="mainController.js"></script>
-
+<script src="http://chancejs.com/chance.min.js"></script>
 </html>
