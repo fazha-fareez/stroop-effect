@@ -1,5 +1,3 @@
-
-
 app.service('randomInteger', function() {
 	this.gen= function(min,max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -7,7 +5,7 @@ app.service('randomInteger', function() {
 })
 
 
-app.controller('mainController', function($scope, randomInteger){
+app.controller('mainController', function($scope, randomInteger, $timeout){
 	$scope.homeShow = true;
 	$scope.wordShow = false;
 	$scope.resultShow = false;
@@ -35,6 +33,7 @@ app.controller('mainController', function($scope, randomInteger){
 		$scope.wordShow = !($scope.wordShow);
 	}
 	$scope.resultPage = function() {
+		$scope.stopTimer();
 		$scope.wordShow = !($scope.wordShow);
 		$scope.resultShow = !($scope.resultShow);
 	}
@@ -83,6 +82,26 @@ app.controller('mainController', function($scope, randomInteger){
 		console.log($scope.arr);
 	}
 
+	// Timer:
+
+	$scope.stopTimer = function() {
+		$timeout.cancel(timer);
+		timer = null;
+	};
+	$scope.startTimer = function() {
+		$scope.time = 3;
+		if (timer == null) {
+			updateTimer();
+		}
+	};
+	var updateTimer = function() {
+		$scope.time--;
+		timer = $timeout(updateTimer, 1000);
+		if ($scope.time == 0) {
+			$scope.next();
+		}
+	};
+
 
 	$scope.verify = function(x) {
 		if (x === $scope.answer) {
@@ -95,6 +114,7 @@ app.controller('mainController', function($scope, randomInteger){
 	$scope.startBtn = function() {
 		$scope.score = 0;
 		$scope.question = 1;
+		$scope.startTimer();
 		$scope.change();
 		$scope.diffWord();
 		$scope.changeClass();
@@ -102,8 +122,11 @@ app.controller('mainController', function($scope, randomInteger){
 	}
 
 	$scope.next = function(x) {
+		$scope.stopTimer();
+		$scope.startTimer();
 		if ($scope.question === 10) {
 			$scope.verify(x);
+			$scope.stopTimer();
 			$scope.resultPage();
 		}
 		else {
