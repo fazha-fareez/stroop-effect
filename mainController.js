@@ -46,7 +46,12 @@ app.controller('mainController', function($scope, randomInteger){
 	}
 	$scope.genOptions = function() {
 		$scope.arr = [];
-		var nums = chance.unique(chance.natural, 5, {min: 0, max: 8});
+		var nums = [];
+		while (nums.length < 5) {
+			var randnum = randomInteger.gen(0,8);
+			if (nums.indexOf(randnum) > -1) continue;
+			nums[nums.length] = randnum;
+		}
 		var i = 0;
 		while (i < nums.length) {
 			$scope.arr.push(words[nums[i]]);
@@ -77,32 +82,19 @@ app.controller('mainController', function($scope, randomInteger){
 		console.log($scope.arr);
 	}
 
-	$scope.timer = function() {
-		$scope.startTime = 3;
-		$scope.x = setInterval(function() {
-			$scope.startTime--;
-			$scope.$apply();
-			if ($scope.startTime <= 0) {
-				$scope.question++;
-				$scope.next();
-			}
-		}, 1000);
-	}
 
 	$scope.verify = function(x) {
 		if (x === $scope.answer) {
 			$scope.score++;
-			$scope.question++;
 		}
-		else { $scope.question++; }
+		$scope.question++;
+		
 	}
-
 
 	$scope.startBtn = function() {
 		$scope.score = 0;
 		$scope.question = 0;
 		$scope.change();
-		$scope.timer();
 		$scope.diffWord();
 		$scope.changeClass();
 		$scope.genOptions();
@@ -110,12 +102,9 @@ app.controller('mainController', function($scope, randomInteger){
 
 	$scope.next = function(x) {
 		if ($scope.question === 9) {
-			clearInterval($scope.x);
 			$scope.resultPage();
 		}
 		else {
-			clearInterval($scope.x);
-			$scope.timer();
 			$scope.verify(x);
 			$scope.diffWord();
 			$scope.changeClass();
