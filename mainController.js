@@ -1,4 +1,5 @@
 
+
 app.service('randomInteger', function() {
 	this.gen= function(min,max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -86,14 +87,14 @@ app.controller('mainController', function($scope, randomInteger){
 	$scope.verify = function(x) {
 		if (x === $scope.answer) {
 			$scope.score++;
+			console.log(x);
 		}
 		$scope.question++;
-		
 	}
 
 	$scope.startBtn = function() {
 		$scope.score = 0;
-		$scope.question = 0;
+		$scope.question = 1;
 		$scope.change();
 		$scope.diffWord();
 		$scope.changeClass();
@@ -101,7 +102,8 @@ app.controller('mainController', function($scope, randomInteger){
 	}
 
 	$scope.next = function(x) {
-		if ($scope.question === 9) {
+		if ($scope.question === 10) {
+			$scope.verify(x);
 			$scope.resultPage();
 		}
 		else {
@@ -114,4 +116,3 @@ app.controller('mainController', function($scope, randomInteger){
 	}
 
 });
-
