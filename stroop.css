@@ -36,6 +36,23 @@ section {
 	margin-bottom: 150px;
 	font-size: 120px;
 }
+a:link {
+	color: rgb(0,179,0);
+	text-decoration: none;
+	background-color: transparent;
+}
+a:visited {
+	color: rgb(0,179,0);
+	text-decoration: none;
+	background-color: transparent;
+}
+a:hover {
+	color: rgb(0,128,0);
+	text-decoration: none;
+	background-color: transparent;
+}
+
+
 
 /* Buttons */
 .buttons {
