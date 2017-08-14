@@ -19,7 +19,7 @@
 			What is the Stroop Effect? <br>
 			The Stroop Effect is a psychological phenomonen that correlates reaction time to interference in a famililar environment. <br>
 			It was first discovered by John Ridley Stroop in 1935. <br>
-			Before starting the game, it is recommended you read more about the <a href="https://imotions.com/blog/the-stroop-effect/"> Stroop Effect </a> .
+			Before starting the game, it is recommended you read more about the <a href="https://imotions.com/blog/the-stroop-effect/"> Stroop Effect </a> . <br>
 		</div>
 		<div class = "instr"> 
 			<span class="instr-title"> 
@@ -34,7 +34,8 @@
 			</div>
 		</div>
 		<div>
-			<span ng-click="startBtn()" class="start-button"> START </span>
+			<span ng-click="startBtn()" class="start-button"> Colour Test </span>
+			<span ng-click="startNumberBtn()" class="start-button"> Numerical Test </span>
 		</div>
 	</section>
 
@@ -47,6 +48,16 @@
 		<div class="time" ng-bind="time"> </div>
 		<div class="buttons">
 			<span ng-click="resultPage()" class="quit-button"> QUIT </span>
+			<span ng-click="reloadPage()" class="home-button"> HOME </span>
+		</div>
+	</section>
+
+	<section class="number-page" ng-show="numberShow">
+		<span ng-click="nextNum(numOne)" ng-class="sizeClassOne" class="number-one" ng-bind="numOne"> </span>
+		<span ng-click="nextNum(numTwo)" ng-class="sizeClassTwo" class="number-two" ng-bind="numTwo"> </span>
+		<div class="time" ng-bind="time"> </div>
+		<div class="buttons">
+			<span ng-click="quit()" class="quit-button"> QUIT </span>
 			<span ng-click="reloadPage()" class="home-button"> HOME </span>
 		</div>
 	</section>
