@@ -1,5 +1,4 @@
 
-
 app.service('randomInteger', function() {
 	this.gen= function(min,max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -11,6 +10,8 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 	$scope.homeShow = true;
 	$scope.wordShow = false;
 	$scope.resultShow = false;
+	$scope.open = false;
+	$scope.plusButton = true;
 	var timer;
 	var words = ["purple", "green", "red", "blue", "yellow", "orange", "pink", "white", "brown"];
 	var colors = ["darkpurple", "lightpurple", "medpurple", "darkgreen", "lightgreen", "medgreen", "darkred", "lightred", "medred",
@@ -26,6 +27,10 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 		"white": ["white"],
 		"brown": ["darkbrown", "lightbrown", "medbrown"]
 	};
+	$scope.panelConfig = function() {
+		$scope.open = !($scope.open);
+		$scope.plusButton = !($scope.plusButton);
+	}
 	$scope.changeClass = function() {
 		$scope.colorNumber = randomInteger.gen(0,22);
 		$scope.class = colors[$scope.colorNumber];
