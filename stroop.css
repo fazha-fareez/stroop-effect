@@ -68,7 +68,13 @@ a:hover {
 	text-decoration: none;
 	background-color: transparent;
 }
-
+.number-one {
+	margin-right: 27px;
+	cursor: pointer;
+}
+.number-two {
+	cursor: pointer;
+}
 
 
 /* Buttons */
@@ -87,6 +93,7 @@ a:hover {
 .start-button {
 	background-color: rgb(118,0,102);
 	color: white;
+	margin-right: 10px;
 }
 .start-button:hover {
 	background-color: white;
@@ -206,5 +213,28 @@ a:hover {
 }
 .medbrown {
 	color: rgb(128,66,0);
+}
+
+/* All the different sizes used */
+.tiny {
+	font-size: 40px;
+}
+.small {
+	font-size: 50px;
+}
+.medsmall {
+	font-size: 60px;
+}
+.medium {
+	font-size: 80px;
+}
+.big {
+	font-size: 90px;
+}
+.verybig {
+	font-size: 100px;
+}
+.large {
+	font-size: 120px;
 }
 
