@@ -1,4 +1,3 @@
-
 app.service('randomInteger', function() {
 	this.gen= function(min,max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -7,6 +6,8 @@ app.service('randomInteger', function() {
 
 
 app.controller('mainController', function($scope, randomInteger, $timeout){
+	// Colour-Word Test Logic
+
 	$scope.homeShow = true;
 	$scope.wordShow = false;
 	$scope.resultShow = false;
@@ -35,12 +36,12 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 		$scope.colorNumber = randomInteger.gen(0,22);
 		$scope.class = colors[$scope.colorNumber];
 	}
-	$scope.change = function() {
+	$scope.changeWordPage = function() {
 		$scope.homeShow = !($scope.homeShow);
 		$scope.wordShow = !($scope.wordShow);
 	}
 	$scope.resultPage = function() {
-		$scope.stopTimer();
+		$scope.stopWordTimer();
 		$scope.wordShow = !($scope.wordShow);
 		$scope.resultShow = !($scope.resultShow);
 	}
@@ -91,19 +92,19 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 
 	// Timer:
 
-	$scope.stopTimer = function() {
+	$scope.stopWordTimer = function() {
 		$timeout.cancel(timer);
 		timer = null;
 	};
-	$scope.startTimer = function() {
+	$scope.startWordTimer = function() {
 		$scope.time = 3;
 		if (timer == null) {
-			updateTimer();
+			updateWordTimer();
 		}
 	};
-	var updateTimer = function() {
+	var updateWordTimer = function() {
 		$scope.time--;
-		timer = $timeout(updateTimer, 1000);
+		timer = $timeout(updateWordTimer, 1000);
 		if ($scope.time == 0) {
 			$scope.next();
 		}
@@ -121,19 +122,19 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 	$scope.startBtn = function() {
 		$scope.score = 0;
 		$scope.question = 1;
-		$scope.startTimer();
-		$scope.change();
+		$scope.startWordTimer();
+		$scope.changeWordPage();
 		$scope.diffWord();
 		$scope.changeClass();
 		$scope.genOptions();
 	}
 
 	$scope.next = function(x) {
-		$scope.stopTimer();
-		$scope.startTimer();
+		$scope.stopWordTimer();
+		$scope.startWordTimer();
 		if ($scope.question === 10) {
 			$scope.verify(x);
-			$scope.stopTimer();
+			$scope.stopWordTimer();
 			$scope.resultPage();
 		}
 		else {
@@ -143,6 +144,92 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 			$scope.genOptions();
 		}
 		
+	}
+
+
+	// Number Test Logic
+
+	var sizes = ["tiny", "small", "medsmall", "medium", "big", "verybig", "large"];
+	$scope.numberShow = false;
+	$scope.changeNumberPage = function() {
+		$scope.homeShow = !($scope.homeShow);
+		$scope.numberShow = !($scope.numberShow);
+	}
+	$scope.changeSizeClass = function() {
+		$scope.sizeNumberOne = randomInteger.gen(0,6);
+		$scope.sizeClassOne = sizes[$scope.sizeNumberOne];
+		$scope.sizeNumberTwo = randomInteger.gen(0,6);
+		$scope.sizeClassTwo = sizes[$scope.sizeNumberTwo];
+	}
+	$scope.diffNum = function() {
+		$scope.numOne = randomInteger.gen(0,9);
+		$scope.numTwo = randomInteger.gen(0,9);
+	}
+	$scope.verifyNum= function(x) {
+		if ($scope.numOne > $scope.numTwo) {
+			if (x == $scope.numOne) {
+				$scope.score++;
+				console.log(x);
+			}
+		}
+		else if ($scope.numOne < $scope.numTwo) {
+			if (x == $scope.numTwo) {
+				$scope.score++;
+				console.log(x);
+			}
+		}
+		else {
+			$scope.score++;
+			console.log(x);
+		}
+		$scope.question++;
+	}
+
+	$scope.stopNumTimer = function() {
+		$timeout.cancel(timer);
+		timer = null;
+	};
+	$scope.startNumTimer = function() {
+		$scope.time = 2;
+		if (timer == null) {
+			updateNumTimer();
+		}
+	};
+	var updateNumTimer = function() {
+		$scope.time--;
+		timer = $timeout(updateNumTimer, 1000);
+		if ($scope.time == 0) {
+			$scope.nextNum();
+		}
+	};
+
+	$scope.quit = function() {
+		$scope.stopNumTimer();
+		$scope.numberShow = !($scope.numberShow);
+		$scope.resultShow = !($scope.resultShow);
+	}
+
+	$scope.startNumberBtn = function() {
+		$scope.score = 0;
+		$scope.question = 1;
+		$scope.startNumTimer();
+		$scope.changeNumberPage();
+		$scope.changeSizeClass();
+		$scope.diffNum();
+	}
+	$scope.nextNum = function(x) {
+		$scope.stopNumTimer();
+		$scope.startNumTimer();
+		if ($scope.question === 10) {
+			$scope.verifyNum(x);
+			$scope.stopNumTimer();
+			$scope.quit();
+		}
+		else {
+			$scope.verifyNum(x);
+			$scope.diffNum();
+			$scope.changeSizeClass();
+		}
 	}
 
 });
