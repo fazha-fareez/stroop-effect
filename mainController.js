@@ -11,8 +11,10 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 	$scope.homeShow = true;
 	$scope.wordShow = false;
 	$scope.resultShow = false;
-	$scope.open = false;
-	$scope.plusButton = true;
+	$scope.openWord = false;
+	$scope.plusButtonWord = true;
+	$scope.openNum = false;
+	$scope.plusButtonNum = true;
 	var timer;
 	var words = ["purple", "green", "red", "blue", "yellow", "orange", "pink", "white", "brown"];
 	var colors = ["darkpurple", "lightpurple", "medpurple", "darkgreen", "lightgreen", "medgreen", "darkred", "lightred", "medred",
@@ -28,9 +30,13 @@ app.controller('mainController', function($scope, randomInteger, $timeout){
 		"white": ["white"],
 		"brown": ["darkbrown", "lightbrown", "medbrown"]
 	};
-	$scope.panelConfig = function() {
-		$scope.open = !($scope.open);
-		$scope.plusButton = !($scope.plusButton);
+	$scope.panelConfigWord = function() {
+		$scope.openWord = !($scope.openWord);
+		$scope.plusButtonWord = !($scope.plusButtonWord);
+	}
+	$scope.panelConfigNum = function() {
+		$scope.openNum = !($scope.openNum);
+		$scope.plusButtonNum = !($scope.plusButtonNum);
 	}
 	$scope.changeClass = function() {
 		$scope.colorNumber = randomInteger.gen(0,22);
