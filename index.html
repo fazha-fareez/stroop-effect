@@ -23,12 +23,24 @@
 		</div>
 		<div class = "instr"> 
 			<span class="instr-title"> 
-				<span> How To Play: </span>
-				<span class="more" ng-show="plusButton" ng-click="panelConfig()"> + </span> <span class="more" ng-show="open" ng-click="panelConfig()"> - </span>
+				<span> Colour Test Instructions: </span>
+				<span class="more" ng-show="plusButtonWord" ng-click="panelConfigWord()"> + </span> <span class="more" ng-show="openWord" ng-click="panelConfigWord()"> - </span>
 			</span>
-			<div class="instr-text" ng-show="open">
+			<div class="instr-text" ng-show="openWord">
 				For each word, select the COLOUR of the word from the options.
 				There are 10 words and you have 2 seconds for each word!
+				Your score will be displayed at the end.
+				Good Luck!
+			</div>
+		</div>
+		<div class="instr instr-bottom">
+			<span class="instr-title"> 
+				<span> Numerical Test Instructions: </span>
+				<span class="more" ng-show="plusButtonNum" ng-click="panelConfigNum()"> + </span> <span class="more" ng-show="openNum" ng-click="panelConfigNum()"> - </span>
+			</span>
+			<div class="instr-text" ng-show="openNum">
+				There will be two numbers displayed on the screen. Select the number that is bigger in VALUE (not necessarily size).
+				There are 10 questions and you have 2 seconds for each question!
 				Your score will be displayed at the end.
 				Good Luck!
 			</div>
