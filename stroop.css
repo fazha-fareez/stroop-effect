@@ -18,9 +18,13 @@ section {
 	font-size: 53px;
 	margin-bottom: 20px;
 }
+.desc {
+	padding-bottom: 5px;
+	border-bottom: grey solid;
+}
 .instr {
 	text-align: left;
-	margin-top: 15px;
+	margin-top: 20px
 }
 .instr-bottom {
 	margin-bottom: 100px;
@@ -36,10 +40,27 @@ section {
 .instr-text {
 	margin-top: 15px;
 }
+
+.instr-text.ng-enter, .instr-test.ng-move {
+	transition: all 0.5s linear;
+	opacity: 0;
+}
+.instr-text.ng-enter.ng-enter-active, .instr-text.ng-move.ng-move-active {
+	opacity: 1;
+}
+.instr-text.ng-leave {
+	animation: 0.5s my_animation;
+}
+@keyframes my_animation {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
 .more {
 	margin-left: 5px;
 	cursor: pointer;
 	color: yellow;
+	font-size: 25px;
 }
 .break {
 	margin-right: 15px;
