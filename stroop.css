@@ -21,16 +21,20 @@ section {
 .instr {
 	text-align: left;
 	margin-top: 15px;
+}
+.instr-bottom {
 	margin-bottom: 100px;
 }
 .instr-title {
-	border: grey solid;
+	border: grey double;
+	border-width: 3px;
 	padding: 7px;
 	text-align: left;
 	font-size: 20px;
+	display: inline-block;
 }
 .instr-text {
-	margin-top: 10px;
+	margin-top: 15px;
 }
 .more {
 	margin-left: 5px;
