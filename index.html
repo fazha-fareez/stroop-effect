@@ -1,89 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Stroop Effect </title>
-	<link rel="stylesheet" type="text/css" href="stroop.css">
+	<meta charset="utf-8"/>
+	<title> Unit Converter History </title>
+	<link rel="stylesheet" type="text/css" href="converter.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
 </head>
 
-<body ng-app="myApp" ng-controller="mainController" ng-cloak>
-	<section class="home-page" ng-show="homeShow">
-		<div class="title"> 
-			<span class="lightred"> S </span> <span class="lightblue"> T </span> <span class="lightgreen"> R </span>
-			<span class="lightpurple"> O </span> <span class="darkorange"> O </span> <span class="break" class="lightpink"> P </span>
-			<span class="medgreen"> E </span> <span class="lightyellow"> F </span> <span class="hotpink"> F </span> 
-			<span class="medred"> E </span> <span class="lightbrown"> C </span> <span class="medpurple"> T </span>
+<body ng-app="myApp" ng-controller="convController" ng-cloak ng-init="searchCookie() ">
+	<section class="name-page" ng-show="showNamePage">
+		<div class="name-title"> Please Enter Your Name: </div>
+		<form id="nameField" name="nameField">
+			<input type="text" autocomplete="off" id="input" name="input" ng-keypress="enter($event, 0)" ng-model="user"/>
+			<span class="enter-button" ng-click="enter($event,1)"> Enter </span>
+		</form>
+		<div ng-if="showInvalidName" class="invalid"> Please enter a name </div>
+
+		<div ng-click="removeCookie()"> remove </div>
+	</section>
+
+	<section class="conv-page" ng-show="showConvPage">
+		<div class="title"> Convert away, <span id="name" ng-bind="cookieName"></span></div>
+		<div class="buttons">
+			<span ng-repeat="x in buttons" class="unit-button" ng-bind="x" ng-click="genDropDown(x)"> </span>	
 		</div>
-		<div class="desc"> 
-			What is the Stroop Effect? <br>
-			The Stroop Effect is a psychological phenomonen that correlates reaction time to interference in a famililar environment. <br>
-			It was first discovered by John Ridley Stroop in 1935. <br>
-			Before starting the game, it is recommended you read more about the <a href="https://imotions.com/blog/the-stroop-effect/"> Stroop Effect </a> . <br>
-		</div>
-		<div class = "instr"> 
-			<span class="instr-title"> 
-				<span> Colour Test Instructions: </span>
-				<span class="more" ng-show="plusButtonWord" ng-click="panelConfigWord()"> + </span> <span class="more" ng-show="openWord" ng-click="panelConfigWord()"> - </span>
-			</span>
-			<div class="instr-text" ng-show="openWord">
-				For each word, select the COLOUR of the word from the options.
-				There are 10 words and you have 2 seconds for each word!
-				Your score will be displayed at the end.
-				Good Luck!
+		<form id="numField" name="numField" ng-show="showNumField">
+			<input type="text" autocomplete="off" id="numInput" name="numInput" ng-keypress="enterNum($event, 0)"/>
+		</form>
+
+		<select name="length" ng-model="selectedLengthA" ng-show="showLenOpt" ng-click="unitClickA(selectedLengthA)">
+			<option ng-repeat="x in lengths">{{x}}</option>
+		</select>
+		<select ng-model="selectedLengthB" ng-show="showLenOpt" ng-click="unitClickB(selectedLengthB)">
+			<option ng-repeat="x in lengths">{{x}}</option>
+		</select>
+
+		<select ng-model="selectedTempA" ng-show="showTempOpt" ng-click="unitClickA(selectedTempA)">
+			<option ng-repeat="x in temps">{{x}}</option>
+		</select>
+		<select ng-model="selectedTempB" ng-show="showTempOpt" ng-click="unitClickB(selectedTempB)">
+			<option ng-repeat="x in temps">{{x}}</option>
+		</select>
+
+		<!-- <select ng-model="selectedAreaA" ng-show="showAreaOpt" ng-click="unitClickA(selectedAreaA)">
+			<option ng-repeat="x in areas">{{x}}</option>
+		</select>
+		<select ng-model="selectedAreaB" ng-show="showAreaOpt" ng-click="unitClickB(selectedAreaB)">
+			<option ng-repeat="x in areas">{{x}}</option>
+		</select>
+
+		<select ng-model="selectedVolumeA" ng-show="showVolumeOpt" ng-click="unitClickA(selectedVolumeA)">
+			<option ng-repeat="x in volumes">{{x}}</option>
+		</select>
+		<select ng-model="selectedVolumeB" ng-show="showVolumeOpt" ng-click="unitClickB(selectedVolumeB)">
+			<option ng-repeat="x in volumes">{{x}}</option>
+		</select> -->
+
+		<select ng-model="selectedMassA" ng-show="showMassOpt" ng-click="unitClickA(selectedMassA)">
+			<option ng-repeat="x in mass">{{x}}</option>
+		</select>
+		<select ng-model="selectedMassB" ng-show="showMassOpt" ng-click="unitClickB(selectedMassB)">
+			<option ng-repeat="x in mass">{{x}}</option>
+		</select>
+
+		<span class="convBtn" ng-show="showConvBtn" ng-click="enterNum($event, 1)"> Convert </span>
+		<div ng-if="showInvalid" class="invalid"> Please select a unit </div>
+		<div ng-if="showInvalidNum" class="invalid"> Invalid Number </div>
+		<div ng-click="removeCookie()"> remove </div>
+	</section>
+
+	<section ng-show="showHistory">
+		<div class="history">
+			<div class="header">
+				<span class="history-title"> History </span>
+				<span class="clearBtn" ng-click="clearAll()"> Clear All </span>
+			</div>
+			<div id="conv">
+				<span ng-bind="listName"></span>
 			</div>
 		</div>
-		<div class="instr instr-bottom">
-			<span class="instr-title"> 
-				<span> Numerical Test Instructions: </span>
-				<span class="more" ng-show="plusButtonNum" ng-click="panelConfigNum()"> + </span> <span class="more" ng-show="openNum" ng-click="panelConfigNum()"> - </span>
-			</span>
-			<div class="instr-text" ng-show="openNum">
-				There will be two numbers displayed on the screen. Select the number that is bigger in VALUE (not necessarily size).
-				There are 10 questions and you have 2 seconds for each question!
-				Your score will be displayed at the end.
-				Good Luck!
-			</div>
-		</div>
-		<div>
-			<span ng-click="startBtn()" class="start-button"> Colour Test </span>
-			<span ng-click="startNumberBtn()" class="start-button"> Numerical Test </span>
-		</div>
-	</section>
 
-	<section class="word-page" ng-show="wordShow">
-		<div ng-class="class" class="color-text" ng-bind="color"> </div>
-		<div>
-			<span ng-repeat="x in arr" ng-click="next(x)" class="option-button" ng-bind="x">
-			</span>
-		</div>
-		<div class="time" ng-bind="time"> </div>
-		<div class="buttons">
-			<span ng-click="resultPage()" class="quit-button"> QUIT </span>
-			<span ng-click="reloadPage()" class="home-button"> HOME </span>
-		</div>
 	</section>
-
-	<section class="number-page" ng-show="numberShow">
-		<span ng-click="nextNum(numOne)" ng-class="sizeClassOne" class="number-one" ng-bind="numOne"> </span>
-		<span ng-click="nextNum(numTwo)" ng-class="sizeClassTwo" class="number-two" ng-bind="numTwo"> </span>
-		<div class="time" ng-bind="time"> </div>
-		<div class="buttons">
-			<span ng-click="quit()" class="quit-button"> QUIT </span>
-			<span ng-click="reloadPage()" class="home-button"> HOME </span>
-		</div>
-	</section>
-
-	<section class="result-page" ng-show="resultShow">
-		<div class = "score" ng-bind="score"> </div>
-		<span ng-click="reloadPage()" class="home-button" id="home-button"> HOME </span>
-	</section>
-
 
 </body>
 
 
+
 <script src="app.js"></script>
-<script type="text/javascript" src="mainController.js"></script>
+<script type="text/javascript" src="converter.js"></script>
 </html>
